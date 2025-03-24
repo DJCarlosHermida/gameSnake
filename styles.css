@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #222;
+  }
+  
+  canvas {
+    border: 2px solid #fff;
+  }
+
+  #scoreDisplay {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+  }
