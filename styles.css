@@ -1,19 +1,49 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #222;
-  }
-  
-  canvas {
-    border: 2px solid #fff;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  background-color: #222;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
 
-  #scoreDisplay {
-    margin-top: 10px;
-    color: #fff;
-    font-size: 20px;
-    text-align: center;
+canvas {
+  border: 2px solid #fff;
+  max-width: 90vw;
+  max-height: 90vw;
+}
+
+#scoreDisplay {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+#controls {
+  display: none; /* Por defecto, oculto en computadoras */
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+#controls button {
+  font-size: 24px;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#controls button:active {
+  background-color: #555;
+}
+
+/* Mostrar controles en dispositivos móviles */
+@media (max-width: 768px) {
+  #controls {
+    display: grid;
   }
+}

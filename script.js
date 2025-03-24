@@ -1,14 +1,18 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const scoreDisplay = document.getElementById("scoreDisplay");
+const controls = document.getElementById("controls");
 
-canvas.width = 400;
-canvas.height = 400;
+function resizeCanvas() {
+  canvas.width = Math.min(window.innerWidth * 0.9, 400); // Máximo 400px
+  canvas.height = canvas.width;
+}
+resizeCanvas();
 
-const box = 20;
+const box = canvas.width / 20; // Tamaño dinámico del cuadro
 let snake = [
-  { x: box * 5, y: box * 5 }, // Primer segmento de la serpiente
-  { x: box * 4, y: box * 5 }  // Segundo segmento de la serpiente
+  { x: box * 5, y: box * 5 },
+  { x: box * 4, y: box * 5 }
 ];
 let direction = "RIGHT";
 let food = {
@@ -16,10 +20,9 @@ let food = {
   y: Math.floor(Math.random() * canvas.height / box) * box
 };
 let score = 0;
-let speed = 400; // Velocidad inicial (lenta)
+let speed = 400;
 let gameInterval;
 
-// Dibujar el tablero
 function draw() {
   ctx.fillStyle = "#000";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -46,10 +49,9 @@ function draw() {
       y: Math.floor(Math.random() * canvas.height / box) * box
     };
 
-    // Incrementar velocidad cada vez que agarres una ficha
     if (speed > 50) {
       clearInterval(gameInterval);
-      speed -= 20; // Reducir el intervalo para hacer el juego más rápido
+      speed -= 20;
       gameInterval = setInterval(draw, speed);
     }
   } else {
@@ -68,13 +70,30 @@ function draw() {
   }
 }
 
-// Cambiar dirección según las teclas presionadas
+// Cambiar dirección con teclado
 document.addEventListener("keydown", event => {
   if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
   if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
   if (event.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
   if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
 });
+
+// Controles táctiles
+document.getElementById("up").addEventListener("click", () => {
+  if (direction !== "DOWN") direction = "UP";
+});
+document.getElementById("down").addEventListener("click", () => {
+  if (direction !== "UP") direction = "DOWN";
+});
+document.getElementById("left").addEventListener("click", () => {
+  if (direction !== "RIGHT") direction = "LEFT";
+});
+document.getElementById("right").addEventListener("click", () => {
+  if (direction !== "LEFT") direction = "RIGHT";
+});
+
+// Redimensionar canvas al cambiar tamaño de ventana
+window.addEventListener("resize", resizeCanvas);
 
 // Iniciar el juego
 gameInterval = setInterval(draw, speed);
