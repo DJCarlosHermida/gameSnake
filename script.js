@@ -49,6 +49,15 @@ function draw() {
       y: Math.floor(Math.random() * canvas.height / box) * box
     };
 
+    // Validar que la comida no aparezca en la serpiente
+    if (snake.some(segment => segment.x === food.x && segment.y === food.y)) {
+      console.warn("Comida generada en la serpiente, regenerando...");
+      food = {
+        x: Math.floor(Math.random() * canvas.width / box) * box,
+        y: Math.floor(Math.random() * canvas.height / box) * box
+      };
+    }
+
     if (speed > 50) {
       clearInterval(gameInterval);
       speed -= 20;
@@ -65,9 +74,12 @@ function draw() {
     head.x >= canvas.width || head.y >= canvas.height ||
     snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)
   ) {
+    console.error("Colisión detectada:", head);
     alert("¡Juego terminado! Puntuación: " + score);
     location.reload();
   }
+
+  console.log("Estado del juego:", { head, snake, food, score, direction });
 }
 
 // Cambiar dirección con teclado
